@@ -82,7 +82,7 @@ namespace Parser_Smotretanime.ru
             var responce = client.GetAsync("https://smotret-anime.online/users/" + indexPage.ToString()).Result;
             string code = responce.Content.ReadAsStringAsync().Result;
             var document = parser.ParseDocumentAsync(code).Result;
-            var results = document.QuerySelectorAll(selectors: "#yw0>li>a");
+            var results = document.QuerySelectorAll(selectors: "#yw0>li>a, #yw2>li>a");
 
             bool isFound = false;
             string nickName = null;
