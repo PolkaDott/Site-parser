@@ -11,14 +11,14 @@ namespace Parser_Smotretanime.ru
         Form1 parent;
         private int nowIndexPage, counterErrors;
         private bool isActiveParse = false;
-        private int startIndexPage = 156300;
+        private int startIndexPage = 152300;
         private int countThreads;
         public int LastParsedPage { get; set; }
         private bool[] respondsByThreads;
         event Action<string> ProfileFound;
-        event Action ProfileNotFound;
+        event Action<string> ProfileNotFound;
 
-        public Parser(Action<string> pf, Action pnf, Form1 parent)
+        public Parser(Action<string> pf, Action<string> pnf, Form1 parent)
         {
             this.parent = parent;
             this.ProfileFound += pf;
@@ -56,8 +56,13 @@ namespace Parser_Smotretanime.ru
             {
                 if (ParseOnePage(pageVk, pageShk, nick, nowIndexPage += incrementForFunctionParsePages, id, client, parser) == 1)
                 {
+                    if (nowIndexPage < 4769 && isActiveParse)
+                    {
+                        isActiveParse = false;
+                        ProfileNotFound("Профиля с такими данными не найдено.");
+                    }
                     counterErrors++;
-                    if (counterErrors > 30)
+                    if (counterErrors > 50) // парс дошёл до самой последней страницы, нужно парсить от новых к старым
                     {
                         if (incrementForFunctionParsePages == 1)
                         {
@@ -68,7 +73,7 @@ namespace Parser_Smotretanime.ru
                         else
                         {
                             isActiveParse = false;
-                            ProfileNotFound();
+                            ProfileNotFound("Парс не удался. Какие-то проблемы с ответом от сервера");
                         }
                     }
                 }

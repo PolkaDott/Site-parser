@@ -16,7 +16,7 @@ namespace Parser_Smotretanime.ru
         private int delayForTimer1 = 40;
         private int delayForTimer2 = 400;
         public event Action<string> ProfileFound;
-        public event Action ProfileNotFound;
+        public event Action<string> ProfileNotFound;
         private DateTime timeBeginParse;
 
         public Form1()
@@ -170,13 +170,13 @@ namespace Parser_Smotretanime.ru
             // сука как это удалить
         }
 
-        private void FailSearch()
+        private void FailSearch(string msg)
         {
             AbortParser(null, null);
             informationLabel.BeginInvoke((Action)(() =>
             {
                 informationLabel.ForeColor = System.Drawing.Color.Red;
-                informationLabel.Text = "Профиля с такими данными не найдено.";
+                informationLabel.Text = msg;
                 btnSearch.Visible = false;
                 choiceCountThreads.Visible = false;
                 labelWithChoiceThreads.Visible = false;
