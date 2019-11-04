@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser_Smotretanime.ru", "Parser_Smotretanime.ru\Parser_Smotretanime.ru.csproj", "{A340B3E6-7DBD-4A90-A3B7-DA39635B9484}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A340B3E6-7DBD-4A90-A3B7-DA39635B9484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A340B3E6-7DBD-4A90-A3B7-DA39635B9484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A340B3E6-7DBD-4A90-A3B7-DA39635B9484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A340B3E6-7DBD-4A90-A3B7-DA39635B9484}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EB2A21A-B262-4BC3-9D12-8EDC54C76F28}
+	EndGlobalSection
+EndGlobal
