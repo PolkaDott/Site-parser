@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
+using System.Collections.Generic;
 using System.Threading;
+using System.Net.Http;
+using AngleSharp.Html.Parser;
 
 namespace Parser_Smotretanime.ru
 {
@@ -23,7 +26,7 @@ namespace Parser_Smotretanime.ru
         {
             InitializeComponent();
             InitializeParser();
-            choiceCountThreads.SelectedIndex = 49;
+            choiceCountThreads.SelectedIndex = 24;
             Task.Run(() => MessageBox.Show("Эта программа бесплатно предоставляется в свободном доступе с открытым исходным кодом на" +
                 " github.com/polkadott/Site-Parser. Связаться с создателем можно в вк vk.com/Ld170. Чтобы пользоваться " +
                 "программой, нужно только ввести ссылку на Vk, Shikimori или указать ник, который у пользователя " +
@@ -80,9 +83,13 @@ namespace Parser_Smotretanime.ru
                 MessageBox.Show("Данные для поиска не указаны");
                 return;
             }
-            if (!textBoxVk.Text.Contains("id") && textBoxVk.Text.Length != 0)
+            try 
+            { 
+                if (ConvertPages() != 0) return; 
+            }
+            catch(Exception)
             {
-                MessageBox.Show("Пожалуйста, введите ссылку на vk в циферном формате vk.com/id*******. Преобразовать можно на сайте vkserv.ru/api/get-vk-id");
+                MessageBox.Show("Кажется, у вас проблемы с интернетом");
                 return;
             }
 
@@ -113,21 +120,36 @@ namespace Parser_Smotretanime.ru
             //    { nomberStartPage = Int32.Parse(startPage.Text); }
             //    catch (System.FormatException) {;}
             //    catch (System.OverflowException) {;}
-
-            ConvertPages();
-
+            
             parser.StartParse(textBoxVk.Text, textBoxShk.Text, textBoxNck.Text, choiceCountThreads.SelectedIndex+1);
         }
 
-        private void ConvertPages()
+        private int ConvertPages()
         {
             string pageVk = textBoxVk.Text;
             if (pageVk.Length != 0)
             {
-                if (pageVk.StartsWith("vk.com"))
-                    textBoxVk.Text = pageVk.Insert(0, "https://");
-                else if (pageVk.StartsWith("id") || !pageVk.StartsWith("https://"))
-                    textBoxVk.Text = pageVk.Insert(0, "https://vk.com/");
+                var post = new Dictionary<string, string> { { "uid", pageVk } };
+                var postEncoded = new FormUrlEncodedContent(post);
+                var response = (new HttpClient()).PostAsync("https://vkserv.ru/api/get-vk-id", postEncoded).Result;
+                var html = response.Content.ReadAsStringAsync().Result;
+                var document = (new HtmlParser()).ParseDocumentAsync(html).Result;
+                var result = document.QuerySelectorAll(selectors: ".get-vk-id-meaning.text-success.font-weight-bold");
+                if (result.Length == 0)
+                {
+                    if (pageVk.StartsWith("vk.com"))
+                        MessageBox.Show("Не существует страницы " + "https://" + pageVk);
+                    else if (pageVk.StartsWith("id") || !pageVk.StartsWith("https://"))
+                        MessageBox.Show("Не существует страницы " + "https://vk.com/" + pageVk);
+                    else if (pageVk.StartsWith("https://"))
+                        MessageBox.Show("Не существует страницы " + pageVk);
+                    return 1;
+                }
+                else
+                {
+                    string link = result[4].TextContent;
+                    textBoxVk.Text = link;
+                }
             }
 
             string pageShk = textBoxShk.Text;
@@ -138,6 +160,14 @@ namespace Parser_Smotretanime.ru
                 else if (!pageShk.StartsWith("http://"))
                     textBoxShk.Text = pageShk.Insert(0, "http://shikimori.one/");
             }
+
+            return 0;
+        }
+
+        private void TextBoxes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && btnSearch.Visible == true)
+                RunParser(null, null);
         }
 
         private void AbortParser(object sender, EventArgs e)

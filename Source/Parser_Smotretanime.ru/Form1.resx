@@ -129,7 +129,7 @@
     <value>75, 23</value>
   </data>
   <data name="btnSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="btnSearch.Text" xml:space="preserve">
     <value>Поиск</value>
@@ -640,7 +640,7 @@
     <value>24</value>
   </data>
   <data name="choiceCountThreads.Items24" xml:space="preserve">
-    <value>25</value>
+    <value>(По умолчанию 25)</value>
   </data>
   <data name="choiceCountThreads.Items25" xml:space="preserve">
     <value>26</value>
@@ -715,7 +715,7 @@
     <value>49</value>
   </data>
   <data name="choiceCountThreads.Items49" xml:space="preserve">
-    <value>(По умолчанию 50)</value>
+    <value>50</value>
   </data>
   <data name="choiceCountThreads.Items50" xml:space="preserve">
     <value>51</value>

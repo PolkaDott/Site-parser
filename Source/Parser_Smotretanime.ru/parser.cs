@@ -11,7 +11,7 @@ namespace Parser_Smotretanime.ru
         Form1 parent;
         private int nowIndexPage, counterErrors;
         private bool isActiveParse = false;
-        private int startIndexPage = 152300;
+        private int startIndexPage = 150000;
         private int countThreads;
         public int LastParsedPage { get; set; }
         private bool[] respondsByThreads;
@@ -27,10 +27,6 @@ namespace Parser_Smotretanime.ru
         }
         public void StartParse(string pageVk, string pageShk, string nick, int countThreads)
         {
-            /*if (startPage < startIndexPage)
-            {
-                startPage = startIndexPage;
-            }*/
             this.countThreads = countThreads;
             nowIndexPage = startIndexPage;
             isActiveParse = true;
@@ -96,7 +92,7 @@ namespace Parser_Smotretanime.ru
                 return 1; 
             }
 
-            if (String.Compare(nickName, nick) == 0 && nickName.Length != 0)
+            if (String.Compare(nickName, nick) == 0 && nickName.Length != 0 && nick.Length != 0)
                 isFound = true;
             foreach (var keks in results)
             {

@@ -34,10 +34,10 @@
             this.textBoxShk = new System.Windows.Forms.TextBox();
             this.labelProfileVk = new System.Windows.Forms.Label();
             this.textBoxVk = new System.Windows.Forms.TextBox();
+            this.startPage = new System.Windows.Forms.TextBox();
             this.btnStop = new System.Windows.Forms.Button();
             this.lableParsed = new System.Windows.Forms.Label();
             this.labelBeginPage = new System.Windows.Forms.Label();
-            this.startPage = new System.Windows.Forms.TextBox();
             this.lableSpeedParsing = new System.Windows.Forms.Label();
             this.lableLastPage = new System.Windows.Forms.Label();
             this.informationLabel = new System.Windows.Forms.TextBox();
@@ -78,6 +78,7 @@
             // 
             resources.ApplyResources(this.textBoxNck, "textBoxNck");
             this.textBoxNck.Name = "textBoxNck";
+            this.textBoxNck.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
             // 
             // labelProfileShk
             // 
@@ -88,6 +89,7 @@
             // 
             resources.ApplyResources(this.textBoxShk, "textBoxShk");
             this.textBoxShk.Name = "textBoxShk";
+            this.textBoxShk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
             // 
             // labelProfileVk
             // 
@@ -98,6 +100,12 @@
             // 
             resources.ApplyResources(this.textBoxVk, "textBoxVk");
             this.textBoxVk.Name = "textBoxVk";
+            this.textBoxVk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
+            // 
+            // startPage
+            // 
+            resources.ApplyResources(this.startPage, "startPage");
+            this.startPage.Name = "startPage";
             // 
             // btnStop
             // 
@@ -117,11 +125,6 @@
             resources.ApplyResources(this.labelBeginPage, "labelBeginPage");
             this.labelBeginPage.Name = "labelBeginPage";
             this.labelBeginPage.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // startPage
-            // 
-            resources.ApplyResources(this.startPage, "startPage");
-            this.startPage.Name = "startPage";
             // 
             // lableSpeedParsing
             // 
